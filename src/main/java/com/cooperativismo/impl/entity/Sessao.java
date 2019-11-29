@@ -17,7 +17,11 @@ public class Sessao {
     @NotNull(message = "O tempo de duração da sessão deve ser informado.")
     private Integer minutosSessao;
     private LocalDateTime dataHoraInicioSessao;
+    private LocalDateTime dataHoraFimSessao;
     private StatusSessaoEnum status;
+    private long quantidadeVotos;
+    private long quantidadeVotosSim;
+    private long quantidadeVotosNao;
 
     public Long getId() {
         return id;
@@ -57,5 +61,29 @@ public class Sessao {
 
     public void setStatus(StatusSessaoEnum status) {
         this.status = status;
+    }
+
+    public long getQuantidadeVotos() {
+        return quantidadeVotos;
+    }
+
+    public void setQuantidadeVotos(long quantidadeVotos) {
+        this.quantidadeVotos = quantidadeVotos;
+    }
+
+    public long getQuantidadeVotosSim() {
+        return quantidadeVotosSim;
+    }
+
+    public void setQuantidadeVotosSim(long quantidadeVotosSim) {
+        this.quantidadeVotosSim = quantidadeVotosSim;
+    }
+
+    public long getQuantidadeVotosNao() {
+        return quantidadeVotosNao;
+    }
+
+    public void setQuantidadeVotosNao(long quantidadeVotosNao) {
+        this.quantidadeVotosNao = quantidadeVotosNao;
     }
 }

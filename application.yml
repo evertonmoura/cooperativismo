@@ -1,7 +1,16 @@
+server:
+  port: 8080
+
+kafka:
+  bootstrap-servers: localhost:9092
+
+integracao:
+  url: https://user-info.herokuapp.com/users
+
 feign:
   client:
     config:
       default:
-        connectTimeout: 5000
-        readTimeout: 5000
+        connectTimeout: 100000
+        readTimeout: 100000
         loggerLevel: basic

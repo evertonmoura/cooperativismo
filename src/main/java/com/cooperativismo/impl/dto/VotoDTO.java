@@ -8,7 +8,9 @@ import lombok.Data;
 @Data
 public class VotoDTO {
 
+
     private Long id;
+    private Long numeroVoto;
     private SimNaoEnum voto;
     private String cpfAssociado;
     private Long idPauta;

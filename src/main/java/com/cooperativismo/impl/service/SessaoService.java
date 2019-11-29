@@ -31,12 +31,17 @@ public class SessaoService {
             this.sessaoValidator=sessaoValidator;
     }
 
-    public List<SessaoDTO> buscarSessoesAbertas(){
+    public List<SessaoDTO> buscarTodasSessoesDTO(){
         List<Sessao> sessoes = new ArrayList<>();
         sessaoRepository.findAll().forEach(sessoes::add);
         return sessaoConverter.toListDTO(sessoes);
     }
 
+    public List<Sessao> buscarTodasSessoes(){
+        List<Sessao> sessoes = new ArrayList<>();
+        sessaoRepository.findAll().forEach(sessoes::add);
+        return sessoes;
+    }
     public SessaoDTO buscarSessaoPorID(Long id){
         Optional<Sessao> sessao = sessaoRepository.findById(id);
         if(sessao == null || !sessao.isPresent()){
@@ -52,11 +57,7 @@ public class SessaoService {
     }
 
     public SessaoDTO saveSessao(long idPauta,Integer minutos){
-        Sessao sessao = new Sessao();
-        sessao.setDataHoraInicioSessao(LocalDateTime.now());
-        sessao.setIdPauta(idPauta);
-        sessao.setMinutosSessao(minutos);
-        sessao.setStatus(StatusSessaoEnum.ABERTA);
+        Sessao sessao = criarSessao(idPauta,minutos);
         sessaoValidator.validateSessao(sessao);
         return  sessaoConverter.toDTO(sessaoRepository.save(sessao));
     }
@@ -65,4 +66,16 @@ public class SessaoService {
         return sessaoRepository.findByIdPauta(idPauta);
     }
 
+    public Sessao atualizarSessao(Sessao sessao){
+        return sessaoRepository.save(sessao);
+    }
+
+    private Sessao criarSessao(long idPauta, Integer minutos) {
+        Sessao sessao = new Sessao();
+        sessao.setDataHoraInicioSessao(LocalDateTime.now());
+        sessao.setIdPauta(idPauta);
+        sessao.setMinutosSessao(minutos == null ? 1 : minutos);
+        sessao.setStatus(StatusSessaoEnum.ABERTA);
+        return sessao;
+    }
 }

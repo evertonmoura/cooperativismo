@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "associados", url = "https://user-info.herokuapp.com/users")
+@FeignClient(name = "associados", url = "${integracao.url}")
 public interface PessoaIntegracaoClient {
 
     @RequestMapping(value = "/{cpf}", method = RequestMethod.GET)

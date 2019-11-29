@@ -42,22 +42,21 @@ public class PautaRest {
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 404, message = "Nenhuma pauta em aberto encontrada"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
-    @GetMapping(value = "/abertas")
+    @GetMapping(value = "/todas")
     public ResponseEntity<List<PautaDTO>> getAllPautas(){
         return ResponseEntity.ok(pautaService.getAllPautas());
     }
 
 
-    @ApiOperation(value = "Insere uma nova pauta.", response = Void.class)
+    @ApiOperation(value = "Insere uma nova pauta.", response = PautaDTO.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
-    @PostMapping("/save/{descricaoPauta}")
-    public ResponseEntity<Void> save(@PathVariable(name = "descricaoPauta") String descricaoPauta) throws ValidationException {
+    @PostMapping("/save/{descricao}")
+    public ResponseEntity<PautaDTO> save(@PathVariable(name = "descricao") String descricao) throws ValidationException {
         PautaDTO pautaDTO = new PautaDTO();
-        pautaDTO.setDescricao(descricaoPauta);
-        pautaService.savaPauta(pautaDTO);
-        return ResponseEntity.ok().build();
+        pautaDTO.setDescricao(descricao);
+        return ResponseEntity.ok(pautaService.savaPauta(pautaDTO));
     }
 
 

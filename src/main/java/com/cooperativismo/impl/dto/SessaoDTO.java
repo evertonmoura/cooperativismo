@@ -12,7 +12,10 @@ public class SessaoDTO {
     private Long idPauta;
     private Integer minutosSessao;
     private LocalDateTime dataHoraInicioSessao;
+    private LocalDateTime dataHoraFimSessao;
     private StatusSessaoEnum status;
-    private Integer quantidadeVotosRecebidos;
+    private long quantidadeVotos;
+    private long quantidadeVotosSim;
+    private long quantidadeVotosNao;
 
 }

@@ -54,8 +54,8 @@ public class SessaoRest {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
-    @PostMapping(value = "/criar/pauta/{idPauta}")
-    public ResponseEntity<SessaoDTO> save(@PathVariable(name = "idPauta") Long idPauta, @RequestParam Integer minutos){
+    @PostMapping(value = "/criar/pauta/{id}")
+    public ResponseEntity<SessaoDTO> save(@PathVariable(name = "id") Long idPauta, @RequestParam(name = "minutos" , required = false) Integer minutos){
              return ResponseEntity.ok(sessaoService.saveSessao(idPauta,minutos));
     }
 

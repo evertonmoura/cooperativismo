@@ -4,7 +4,10 @@ import com.cooperativismo.impl.converters.PautaConverter;
 import com.cooperativismo.impl.dto.PautaDTO;
 import com.cooperativismo.impl.entity.Pauta;
 import com.cooperativismo.impl.repository.PautaRepository;
+import com.cooperativismo.impl.service.pessoa.AssociadoService;
 import com.cooperativismo.impl.validator.PautaValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,10 @@ import java.util.Optional;
 
 @Service
 public class PautaService {
+
+
+    private static  final Logger LOGGER = LoggerFactory.getLogger(PautaService.class);
+
 
     private PautaRepository pautaRepository;
     private PautaConverter pautaConverter;
@@ -38,9 +45,12 @@ public class PautaService {
         return pautaConverter.toDTO(pauta.get());
     }
 
-    public  void savaPauta(PautaDTO pautaDTO) throws ValidationException {
+    public  PautaDTO savaPauta(PautaDTO pautaDTO) throws ValidationException {
+        LOGGER.info("Salvando pauta:  "  + pautaDTO.getDescricao());
         Pauta pauta = pautaConverter.toEntity(pautaDTO);
         pautaValidator.validatePauta(pauta);
-        pautaRepository.save(pauta);
+        PautaDTO pautaSalva = pautaConverter.toDTO(pautaRepository.save(pauta));
+        LOGGER.info("Salvando pauta:  OK  "  + pautaDTO.getDescricao());
+        return  pautaSalva;
     }
 }
