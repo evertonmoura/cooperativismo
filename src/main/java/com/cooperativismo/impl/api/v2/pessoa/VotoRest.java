@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.security.validator.ValidatorException;
 
 @RequestMapping("cooperativismo/voto/v2")
 @RestController("VotoRestV2")
@@ -29,10 +28,10 @@ public class VotoRest {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 404, message = "Pauta não tem sessão aberta"),
-            @ApiResponse(code = 422, message = "Erros de validação do voto"),
+            @ApiResponse(code = 422, message = "Erros de validação"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
     @PostMapping("/votar")
-    public ResponseEntity<VotoDTO> votar(@RequestBody VotoDTO votoDTO) throws ValidatorException {
+    public ResponseEntity<VotoDTO> votar(@RequestBody VotoDTO votoDTO){
         return ResponseEntity.ok(votoServiceV2.votar(votoDTO));
     }
 }

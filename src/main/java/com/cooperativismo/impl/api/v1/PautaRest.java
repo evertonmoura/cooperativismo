@@ -1,7 +1,6 @@
 package com.cooperativismo.impl.api.v1;
 
 import com.cooperativismo.impl.dto.PautaDTO;
-import com.cooperativismo.impl.entity.Pauta;
 import com.cooperativismo.impl.service.PautaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,16 +26,6 @@ public class PautaRest {
         this.pautaService=pautaService;
     }
 
-    @ApiOperation(value = "Retorna a Pauta.", response = PautaDTO.class)
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Ok"),
-            @ApiResponse(code = 404, message = "Pauta não encontrada"),
-            @ApiResponse(code = 500, message = "Erro inesperado") })
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<PautaDTO> getPauta(Long idPauta){
-              return ResponseEntity.ok(pautaService.getPautaById(idPauta));
-    }
-
     @ApiOperation(value = "Retorna uma lista com as pautas em  Situação = Aberta.", response = PautaDTO.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
@@ -51,12 +40,13 @@ public class PautaRest {
     @ApiOperation(value = "Insere uma nova pauta.", response = PautaDTO.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 422, message = "Erros de validação"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
     @PostMapping("/save/{descricao}")
     public ResponseEntity<PautaDTO> save(@PathVariable(name = "descricao") String descricao) throws ValidationException {
         PautaDTO pautaDTO = new PautaDTO();
         pautaDTO.setDescricao(descricao);
-        return ResponseEntity.ok(pautaService.savaPauta(pautaDTO));
+        return ResponseEntity.ok(pautaService.salvaPauta(pautaDTO));
     }
 
 

@@ -8,10 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.security.validator.ValidatorException;
 
 @RestController("VotoRest")
 @RequestMapping("cooperativismo/voto")
@@ -20,7 +18,6 @@ import sun.security.validator.ValidatorException;
 public class VotoRest {
 
     private VotoService votoService;
-
 
     @Autowired
     public VotoRest (VotoService votoService){
@@ -37,7 +34,7 @@ public class VotoRest {
     @PostMapping("/votar/pauta/{idPauta}/opcao/{opcao}/associado/{cpf}")
     public ResponseEntity<VotoDTO> votar(@PathVariable(name = "idPauta") Long idPauta,
                                       @PathVariable(name = "opcao")SimNaoEnum opcao,
-                                      @PathVariable(name = "cpf") String cpfAssociado) throws ValidatorException {
+                                      @PathVariable(name = "cpf") String cpfAssociado){
         return ResponseEntity.ok(votoService.votar(idPauta,opcao,cpfAssociado));
     }
 }

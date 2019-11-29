@@ -86,4 +86,12 @@ public class Sessao {
     public void setQuantidadeVotosNao(long quantidadeVotosNao) {
         this.quantidadeVotosNao = quantidadeVotosNao;
     }
+
+    public LocalDateTime getDataHoraFimSessao() {
+        return dataHoraFimSessao;
+    }
+
+    public void setDataHoraFimSessao(LocalDateTime dataHoraFimSessao) {
+        this.dataHoraFimSessao = dataHoraFimSessao;
+    }
 }

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.validator.ValidatorException;
 
 import javax.validation.ValidationException;
 
@@ -26,7 +25,7 @@ public class VotoService {
        this.votoService=votoService;
    }
 
-   public VotoDTO votar(VotoDTO voto) throws ValidatorException {
+   public VotoDTO votar(VotoDTO voto){
        LOGGER.info("Salvando voto V2 : " + voto.toString());
        validarUsuarioAptoVoto(voto.getCpfAssociado());
        return votoService.votar(voto);
