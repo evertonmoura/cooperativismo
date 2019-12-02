@@ -6,6 +6,7 @@ import com.cooperativismo.impl.entity.Sessao;
 import com.cooperativismo.impl.entity.Voto;
 import com.cooperativismo.impl.entity.enums.SimNaoEnum;
 import com.cooperativismo.impl.entity.enums.StatusSessaoEnum;
+import com.cooperativismo.impl.exception.ValidationException;
 import com.cooperativismo.impl.repository.VotoRepository;
 import com.cooperativismo.impl.service.pessoa.AssociadoService;
 import com.cooperativismo.impl.validator.VotoValidator;
@@ -16,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

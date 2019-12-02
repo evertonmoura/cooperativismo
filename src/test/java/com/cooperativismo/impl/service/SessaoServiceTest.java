@@ -3,6 +3,7 @@ package com.cooperativismo.impl.service;
 import com.cooperativismo.impl.converters.SessaoConverter;
 import com.cooperativismo.impl.dto.SessaoDTO;
 import com.cooperativismo.impl.entity.Sessao;
+import com.cooperativismo.impl.exception.ValidationException;
 import com.cooperativismo.impl.rabbit.Sender;
 import com.cooperativismo.impl.repository.SessaoRepository;
 import com.cooperativismo.impl.validator.SessaoValidator;
@@ -12,7 +13,6 @@ import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import javax.validation.ValidationException;
 import java.util.Optional;
 
 import static com.cooperativismo.impl.entity.enums.StatusSessaoEnum.ENCERRADA;
