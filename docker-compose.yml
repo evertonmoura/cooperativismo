@@ -1,18 +1,30 @@
 version: '3'
 
 services:
-  teste-postgres-compose:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    labels:
+      NAME: "rabbitmq"
+    volumes:
+      - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
+
+     
+  cooperativismo-postgres-compose:
     image: postgres
     environment:
       POSTGRES_PASSWORD: "Postgres2019!"
     ports:
       - "15432:5432"
     volumes:
-      - /home/renatogroffe/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data 
+      - /home/desenvolvimento/docker-compose/PostgreSQL:/var/lib/postgresql/data 
     networks:
       - postgres-compose-network
       
-  teste-pgadmin-compose:
+  cooperativismo-pgadmin-compose:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: "evertongsp3@gmail.com"
@@ -20,10 +32,12 @@ services:
     ports:
       - "16543:80"
     depends_on:
-      - teste-postgres-compose
+      - cooperativismo-postgres-compose
     networks:
       - postgres-compose-network
 
 networks: 
   postgres-compose-network:
     driver: bridge
+    
+    

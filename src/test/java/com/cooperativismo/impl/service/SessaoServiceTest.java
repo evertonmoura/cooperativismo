@@ -3,6 +3,7 @@ package com.cooperativismo.impl.service;
 import com.cooperativismo.impl.converters.SessaoConverter;
 import com.cooperativismo.impl.dto.SessaoDTO;
 import com.cooperativismo.impl.entity.Sessao;
+import com.cooperativismo.impl.rabbit.Sender;
 import com.cooperativismo.impl.repository.SessaoRepository;
 import com.cooperativismo.impl.validator.SessaoValidator;
 import org.junit.Rule;
@@ -10,27 +11,27 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import javax.validation.ValidationException;
 import java.util.Optional;
 
 import static com.cooperativismo.impl.entity.enums.StatusSessaoEnum.ENCERRADA;
 import static java.time.LocalDateTime.now;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class SessaoServiceTest {
 
     @Mock
-    private SessaoRepository sessaoRepository = Mockito.mock(SessaoRepository.class);
+    private SessaoRepository sessaoRepository = mock(SessaoRepository.class);
     @Mock
-    private SessaoValidator sessaoValidator = Mockito.mock(SessaoValidator.class);
+    private SessaoValidator sessaoValidator = mock(SessaoValidator.class);
     @Mock
-    private SessaoConverter sessaoConverter = Mockito.mock(SessaoConverter.class);
+    private SessaoConverter sessaoConverter = mock(SessaoConverter.class);
+    @Mock
+    private Sender sender = mock(Sender.class);
 
     @InjectMocks
-    private SessaoService sessaoService = new SessaoService(sessaoRepository,sessaoConverter,sessaoValidator);
+    private SessaoService sessaoService = new SessaoService(sessaoRepository,sessaoConverter,sessaoValidator,sender);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

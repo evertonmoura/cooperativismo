@@ -14,3 +14,14 @@ feign:
         connectTimeout: 100000
         readTimeout: 100000
         loggerLevel: basic
+
+rabbit:
+  spring:
+    rabbitmq:
+      hots: localhost
+      port: 5672
+      username: guest
+      password: guest
+      queue: sessaoecnerrada
+
+

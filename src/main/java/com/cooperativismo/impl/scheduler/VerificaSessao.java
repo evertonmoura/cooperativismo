@@ -1,8 +1,8 @@
 package com.cooperativismo.impl.scheduler;
 
+import com.cooperativismo.impl.converters.SessaoConverter;
 import com.cooperativismo.impl.entity.Sessao;
 import com.cooperativismo.impl.entity.Voto;
-import com.cooperativismo.impl.entity.enums.SimNaoEnum;
 import com.cooperativismo.impl.service.SessaoService;
 import com.cooperativismo.impl.service.VotoService;
 import org.slf4j.Logger;
@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.cooperativismo.impl.entity.enums.SimNaoEnum.NAO;
@@ -30,11 +29,13 @@ public class VerificaSessao {
     private static  final Logger LOGGER = LoggerFactory.getLogger(VerificaSessao.class);
     private SessaoService sessaoService;
     private VotoService votoService;
+    private SessaoConverter sessaoConverter;
 
     @Autowired
-    public VerificaSessao(SessaoService sessaoService,VotoService votoService) {
+    public VerificaSessao(SessaoService sessaoService,VotoService votoService,SessaoConverter sessaoConverter) {
         this.sessaoService = sessaoService;
         this.votoService=votoService;
+        this.sessaoConverter=sessaoConverter;
     }
 
     @Scheduled(fixedDelay = 10000)
@@ -51,13 +52,21 @@ public class VerificaSessao {
             LOGGER.info("Encerrando sessão : inicio " + sessao.toString() );
             sessao.setStatus(ENCERRADA);
             List<Voto> votos = votoService.buscarTodos();
-            sessao.setQuantidadeVotos(votos.size());
+            sessao.setQuantidadeVotos(votos.stream().count());
             sessao.setQuantidadeVotosSim(votos.stream().filter(voto -> voto.getVoto().equals(SIM)).count());
             sessao.setQuantidadeVotos(votos.stream().filter(voto -> voto.getVoto().equals(NAO)).count());
             sessao.setDataHoraInicioSessao(now());
             sessaoService.atualizarSessao(sessao);
+            enviarMensagem(sessao);
             LOGGER.info("Encerrando sessão : fim " + sessao.toString() );
         });
+
+    }
+
+    private void enviarMensagem(Sessao sessao) {
+        LOGGER.info("enviarMensagem : " + sessao.toString() );
+        sessaoService.enviarMensagemEncerramentoSessao(sessaoConverter.toDTO(sessao));
+        LOGGER.info("enviarMensagem :  OK " + sessao.toString() );
 
     }
 

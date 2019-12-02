@@ -17,26 +17,25 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import javax.validation.ValidationException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class VotoServiceTest {
     @Mock
-    private VotoRepository votoRepository = Mockito.mock(VotoRepository.class);
+    private VotoRepository votoRepository = mock(VotoRepository.class);
     @Mock
-    private VotoConverter votoConverter = Mockito.mock(VotoConverter.class);
+    private VotoConverter votoConverter = mock(VotoConverter.class);
     @Mock
-    private VotoValidator votoValidator = Mockito.mock(VotoValidator.class);
+    private VotoValidator votoValidator = mock(VotoValidator.class);
     @Mock
-    private SessaoService sessaoService = Mockito.mock(SessaoService.class);
+    private SessaoService sessaoService = mock(SessaoService.class);
     @Mock
-    private AssociadoService associadoService = Mockito.mock(AssociadoService.class);
+    private AssociadoService associadoService = mock(AssociadoService.class);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

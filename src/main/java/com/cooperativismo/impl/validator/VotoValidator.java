@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.ValidationException;
 
+
 @Component
 public class VotoValidator {
 

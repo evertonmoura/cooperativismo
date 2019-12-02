@@ -3,7 +3,7 @@ package com.cooperativismo.impl.validator.pessoa;
 import com.cooperativismo.impl.entity.pessoa.Associado;
 import org.springframework.stereotype.Component;
 
-import javax.xml.bind.ValidationException;
+import javax.validation.ValidationException;
 
 @Component
 public class AssociadoValidator {

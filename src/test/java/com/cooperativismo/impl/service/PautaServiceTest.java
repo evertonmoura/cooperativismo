@@ -14,21 +14,20 @@ import org.mockito.Mockito;
 
 import javax.validation.ValidationException;
 
-import java.util.Optional;
-
 import static java.util.Optional.of;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class PautaServiceTest {
 
     @Mock
-    private PautaRepository pautaRepository = Mockito.mock(PautaRepository.class);
+    private PautaRepository pautaRepository = mock(PautaRepository.class);
     @Mock
-    private PautaConverter pautaConverter =  Mockito.mock(PautaConverter.class);
+    private PautaConverter pautaConverter =  mock(PautaConverter.class);
     @Mock
-    private PautaValidator pautaValidator=  Mockito.mock(PautaValidator.class);
+    private PautaValidator pautaValidator=  mock(PautaValidator.class);
 
     @InjectMocks
     private PautaService pautaService = new PautaService(pautaRepository,pautaConverter,pautaValidator);

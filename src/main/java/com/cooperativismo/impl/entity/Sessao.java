@@ -1,13 +1,17 @@
 package com.cooperativismo.impl.entity;
 
 import com.cooperativismo.impl.entity.enums.StatusSessaoEnum;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-public class Sessao {
+public class Sessao implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -93,5 +97,56 @@ public class Sessao {
 
     public void setDataHoraFimSessao(LocalDateTime dataHoraFimSessao) {
         this.dataHoraFimSessao = dataHoraFimSessao;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Sessao sessao = (Sessao) o;
+
+        return new EqualsBuilder()
+                .append(quantidadeVotos, sessao.quantidadeVotos)
+                .append(quantidadeVotosSim, sessao.quantidadeVotosSim)
+                .append(quantidadeVotosNao, sessao.quantidadeVotosNao)
+                .append(id, sessao.id)
+                .append(idPauta, sessao.idPauta)
+                .append(minutosSessao, sessao.minutosSessao)
+                .append(dataHoraInicioSessao, sessao.dataHoraInicioSessao)
+                .append(dataHoraFimSessao, sessao.dataHoraFimSessao)
+                .append(status, sessao.status)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(idPauta)
+                .append(minutosSessao)
+                .append(dataHoraInicioSessao)
+                .append(dataHoraFimSessao)
+                .append(status)
+                .append(quantidadeVotos)
+                .append(quantidadeVotosSim)
+                .append(quantidadeVotosNao)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("idPauta", idPauta)
+                .append("minutosSessao", minutosSessao)
+                .append("dataHoraInicioSessao", dataHoraInicioSessao)
+                .append("dataHoraFimSessao", dataHoraFimSessao)
+                .append("status", status)
+                .append("quantidadeVotos", quantidadeVotos)
+                .append("quantidadeVotosSim", quantidadeVotosSim)
+                .append("quantidadeVotosNao", quantidadeVotosNao)
+                .toString();
     }
 }

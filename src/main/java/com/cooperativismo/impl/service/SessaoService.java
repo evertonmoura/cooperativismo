@@ -4,6 +4,7 @@ import com.cooperativismo.impl.converters.SessaoConverter;
 import com.cooperativismo.impl.dto.SessaoDTO;
 import com.cooperativismo.impl.entity.Sessao;
 import com.cooperativismo.impl.entity.enums.StatusSessaoEnum;
+import com.cooperativismo.impl.rabbit.Sender;
 import com.cooperativismo.impl.repository.SessaoRepository;
 import com.cooperativismo.impl.validator.SessaoValidator;
 import org.slf4j.Logger;
@@ -12,13 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;
-import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SessaoService {
@@ -28,12 +26,14 @@ public class SessaoService {
     private SessaoRepository sessaoRepository;
     private SessaoConverter sessaoConverter;
     private SessaoValidator sessaoValidator;
+    private Sender sender;
 
     @Autowired
-    public SessaoService (SessaoRepository sessaoRepository,SessaoConverter sessaoConverter,SessaoValidator sessaoValidator){
+    public SessaoService (SessaoRepository sessaoRepository,SessaoConverter sessaoConverter,SessaoValidator sessaoValidator,Sender sender){
             this.sessaoRepository=sessaoRepository;
             this.sessaoConverter=sessaoConverter;
             this.sessaoValidator=sessaoValidator;
+            this.sender=sender;
     }
 
     public  Sessao buscarSessaoPorIdPauta(Long idPauta){
@@ -82,6 +82,13 @@ public class SessaoService {
         LOGGER.info("saveSessao OK" + idPauta + " : " + minutos);
         return  sessaoConverter.toDTO(sessao);
     }
+
+    public void enviarMensagemEncerramentoSessao(SessaoDTO sessaoDTO) {
+        LOGGER.info("enviarMensagemEncerramentoSessao ");
+        sender.send(sessaoDTO);
+        LOGGER.info("enviarMensagemEncerramentoSessao  :  OK ");
+    }
+
 
     private void validarSessaoJaExistenteParaPauta(long idPauta) {
         LOGGER.info("validarSessaoJaExistenteParaPauta " + idPauta);
