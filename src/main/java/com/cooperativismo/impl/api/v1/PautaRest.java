@@ -40,7 +40,7 @@ public class PautaRest {
     @ApiOperation(value = "Insere uma nova pauta.", response = PautaDTO.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
-            @ApiResponse(code = 422, message = "Erros de validação"),
+            @ApiResponse(code = 400, message = "Erros de validação"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
     @PostMapping("/save/{descricao}")
     public ResponseEntity<PautaDTO> save(@PathVariable(name = "descricao") String descricao) throws ValidationException {

@@ -27,8 +27,8 @@ public class VotoRest {
     @ApiOperation(value = "Salva um  voto em uma sessão aberta")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 400, message = "Erros de validação"),
             @ApiResponse(code = 404, message = "Pauta não tem sessão aberta"),
-            @ApiResponse(code = 422, message = "Erros de validação"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
     @PostMapping("/votar")
     public ResponseEntity<VotoDTO> votar(@RequestBody VotoDTO votoDTO){

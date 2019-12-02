@@ -24,7 +24,7 @@ public class SessaoRest {
     @ApiOperation(value = "Salva uma nova Sessão.", response = Void.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
-            @ApiResponse(code = 422, message = "Erros de validação"),
+            @ApiResponse(code = 400, message = "Erros de validação"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
     @PostMapping(value = "/criar/")
     public ResponseEntity<SessaoDTO> criar(@RequestBody SessaoDTO sessaoDTO){

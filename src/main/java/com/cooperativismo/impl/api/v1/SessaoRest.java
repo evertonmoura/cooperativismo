@@ -30,6 +30,7 @@ public class SessaoRest {
     @ApiOperation(value = "Retorna uma Sessção.", response = PautaDTO.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 400, message = "Erros de validação"),
             @ApiResponse(code = 404, message = "Sessão não encontrada"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
     @GetMapping(value = "/{id}")
@@ -40,7 +41,8 @@ public class SessaoRest {
     @ApiOperation(value = "Salva uma nova Sessão.", response = Void.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
-            @ApiResponse(code = 422, message = "Erros de validação"),
+            @ApiResponse(code = 400, message = "Erros de validação"),
+            @ApiResponse(code = 404, message = "Pauta não encontrada"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
     @PostMapping(value = "/criar/pauta/{id}")
     public ResponseEntity<SessaoDTO> criar(@PathVariable(name = "id") Long idPauta, @RequestParam(name = "minutos" , required = false) Integer minutos){

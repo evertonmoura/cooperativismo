@@ -29,7 +29,7 @@ public class VotoRest {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Ok"),
             @ApiResponse(code = 404, message = "Pauta não tem sessão aberta"),
-            @ApiResponse(code = 422, message = "Erros de validação do voto"),
+            @ApiResponse(code = 400, message = "Erros de validação do voto"),
             @ApiResponse(code = 500, message = "Erro inesperado") })
     @PostMapping("/votar/pauta/{idPauta}/opcao/{opcao}/associado/{cpf}")
     public ResponseEntity<VotoDTO> votar(@PathVariable(name = "idPauta") Long idPauta,
