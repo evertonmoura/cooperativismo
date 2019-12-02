@@ -7,6 +7,8 @@ import com.cooperativismo.impl.entity.Voto;
 import com.cooperativismo.impl.entity.enums.SimNaoEnum;
 import com.cooperativismo.impl.entity.enums.StatusSessaoEnum;
 import com.cooperativismo.impl.entity.pessoa.Associado;
+import com.cooperativismo.impl.exception.ResourceNotFoundException;
+import com.cooperativismo.impl.exception.ValidationException;
 import com.cooperativismo.impl.repository.VotoRepository;
 import com.cooperativismo.impl.service.pessoa.AssociadoService;
 import com.cooperativismo.impl.validator.VotoValidator;
@@ -15,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +89,7 @@ public class VotoService {
         Associado associado = associadoService.buscarAssociadoPorCpf(cpfAssociado);
         if(associado == null){
             LOGGER.error("validarAssociado " + cpfAssociado);
-            throw new ValidationException("Associado não cadastrado.");
+            throw new ResourceNotFoundException("Associado não cadastrado.");
         }
         LOGGER.info("validarAssociado  OK" + cpfAssociado);
     }

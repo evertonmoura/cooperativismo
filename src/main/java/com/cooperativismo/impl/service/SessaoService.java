@@ -4,6 +4,8 @@ import com.cooperativismo.impl.converters.SessaoConverter;
 import com.cooperativismo.impl.dto.SessaoDTO;
 import com.cooperativismo.impl.entity.Sessao;
 import com.cooperativismo.impl.entity.enums.StatusSessaoEnum;
+import com.cooperativismo.impl.exception.ResourceNotFoundException;
+import com.cooperativismo.impl.exception.ValidationException;
 import com.cooperativismo.impl.rabbit.Sender;
 import com.cooperativismo.impl.repository.SessaoRepository;
 import com.cooperativismo.impl.validator.SessaoValidator;
@@ -12,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class SessaoService {
     public SessaoDTO buscarSessaoPorID(Long id){
         Optional<Sessao> sessao = sessaoRepository.findById(id);
         if(sessao == null || !sessao.isPresent()){
-            throw new ValidationException("Sessão não encontrada");
+            throw new ResourceNotFoundException("Sessão não encontrada");
         }
         return  sessaoConverter.toDTO(sessao.get());
     }

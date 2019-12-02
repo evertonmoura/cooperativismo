@@ -1,13 +1,12 @@
 package com.cooperativismo.impl.service.v2;
 
 import com.cooperativismo.impl.dto.VotoDTO;
+import com.cooperativismo.impl.exception.ValidationException;
 import com.cooperativismo.impl.service.client.PessoaIntegracaoClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.validation.ValidationException;
 
 import static java.lang.String.valueOf;
 

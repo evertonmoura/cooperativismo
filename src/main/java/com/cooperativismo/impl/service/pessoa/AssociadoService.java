@@ -3,6 +3,7 @@ package com.cooperativismo.impl.service.pessoa;
 import com.cooperativismo.impl.converters.pessoa.AssociadoConverter;
 import com.cooperativismo.impl.dto.pessoa.AssociadoDTO;
 import com.cooperativismo.impl.entity.pessoa.Associado;
+import com.cooperativismo.impl.exception.ValidationException;
 import com.cooperativismo.impl.repository.pessoa.AssociadoRepository;
 import com.cooperativismo.impl.validator.pessoa.AssociadoValidator;
 import org.slf4j.Logger;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
 
 @Service
 public class AssociadoService {
